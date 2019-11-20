@@ -34,14 +34,22 @@
                 <tbody>
                     <tr *ngFor = "let prod of products | productSearch: userInput">
                         <td>
-                            <img [src]="prod.imageUrl" *ngIf="showImage" />
+                            <img [src]="prod.imageUrl"
+                            [style.width.px] = "imageWidth" *ngIf="showImage" />
                         </td>
-                        <td>{{ prod.productName | myTextUpper: 'lower'}}</td>
+                        <td appChangeColor>
+                            <a  [routerLink] = "['/product' , prod.productId]">
+                                 {{ prod.productName | myTextUpper: 'lower'}}
+                            </a>
+                        </td>
+                              
                         <td>{{ prod.productCode | myTextUpper: 'upper'}}</td>
                         <td>{{ prod.releaseDate |date }}</td>
                         <td [ngStyle]="{'background-color':prod.price<20 ?'lightgreen':'lightpink'}">
                         {{ prod.price | discount | currency :'INR'}}</td>
-                         <td>{{ prod.starRating }}</td>
+                         <td>
+                             <app-star [rating]= "prod.starRating"
+                             (ratingClicked)="dataReceive($event)"></app-star></td>
                         </tr>
 
                 </tbody>
@@ -52,3 +60,8 @@
 
     </ng-template>
 </div>
+
+<!--
+     [queryParams] = "{name: prod.productName, img: prod.imageUrl,
+                                 desc: prod.description}"
+-->

@@ -1,0 +1,75 @@
+import {NgModule} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+
+import { from } from 'rxjs';
+
+import { ProductComponent } from './product/product.component';
+import { Product1Component } from './product1/product1.component';
+import { MyUpperPipe } from './product/myUpper.pipe';
+import { DiscountPipe } from './product/MyDiscountPipe';
+import { ProductSearchPipe } from './product/myfilter.pipe';
+import { ProductService } from './product/product.service';
+import { StarComponent } from './shared/star.component';
+import { ChangeColorDirective } from './product/ChangeColor.directive';
+import { HomeComponent } from './home/home.component';
+import { OrdersComponent } from './orders/orders.component';
+
+import { OrderpipePipe } from './orders/orderpipe.pipe';
+import { ProductDetailsComponent } from './product/product-detail.component';
+import { RouterGaurds } from './product/product.routerGaurd';
+
+
+
+
+@NgModule({
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        RouterModule.forRoot([
+            {path: 'product',component:  ProductComponent },
+            {path: 'product/:id', canActivate:[ RouterGaurds],component:  ProductDetailsComponent },
+            {path: 'order',component:  OrdersComponent },
+            {path: 'home',component:  HomeComponent },
+            {path: '', redirectTo:'home', pathMatch: 'full'} 
+            
+
+        ])
+        
+    ],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        ProductComponent,
+        Product1Component,
+        MyUpperPipe,
+        DiscountPipe,
+        ProductSearchPipe,
+        StarComponent,
+        ChangeColorDirective,
+        OrdersComponent,
+        
+        OrderpipePipe,
+        ProductDetailsComponent
+         
+
+    
+    ],
+    providers: [
+        ProductService,
+        RouterGaurds
+    ],
+    bootstrap: [
+        AppComponent
+    ]
+
+})
+
+
+export class AppModule {
+
+}
